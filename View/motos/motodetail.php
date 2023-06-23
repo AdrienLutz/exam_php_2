@@ -1,17 +1,17 @@
 <?php
 include 'View/parts/header.php';
 ?>
-<h1>La planète <?php echo($planet->getNom()); ?></h1>
-<a class="btn btn-outline-warning " href="index.php?controller=planetes&action=planetlist">back</a>
+<h1>La moto <?php echo($moto->getModel()); ?></h1>
+<a class="btn btn-outline-warning " href="index.php?controller=motos&action=motolist">back</a>
 <section class="container">
 <div class="row align-items-center">
     <div class="col-lg-6 mb-5">
-        <img class="img-fluid" style="max-height:200px" src="public/img/<?php echo($planet->getPicture()) ?>">
+        <img class="img-fluid" style="max-height:200px" src="public/img/<?php echo($moto->getPicture()) ?>">
     </div>
     <div class="col-lg-6 mb-5">
-        <h4 >Quelques informations sur <?php echo($planet->getNom()); ?></h4>
-        <li >Description = <?php echo($planet->getDescription()); ?></li>
-        <li >Terrain = <?php echo($planet->getTerrain()); ?></li>
+        <h4 >Quelques informations sur la <?php echo($moto->getModel()); ?></h4>
+        <li >model = <?php echo($moto->getModel()); ?></li>
+        <li >type = <?php echo($moto->getType()); ?></li>
     </div>
 </div>
 </section>

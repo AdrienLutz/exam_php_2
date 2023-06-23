@@ -8,7 +8,7 @@ abstract class DbManager
     private $host = "localhost";
     private $user = "root";
     private $password = "";
-    private $dbname = "star_wars";
+    private $dbname = "moto_bdd";
 
     public function __construct()
     {

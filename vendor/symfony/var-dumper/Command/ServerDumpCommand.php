@@ -35,7 +35,7 @@ use Symfony\Component\VarDumper\Server\DumpServer;
  *
  * @final
  */
-#[AsCommand(name: 'server:dump', description: 'Start a dump server that collects and displays dumps in a single place')]
+#[AsCommand(name: 'server:dump', model: 'Start a dump server that collects and displays dumps in a single place')]
 class ServerDumpCommand extends Command
 {
     private DumpServer $server;

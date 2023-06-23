@@ -4,12 +4,10 @@ include 'View/parts/header.php';
 <main>
     <h1>Oops ! Cette page n'existe pas</h1>
         <?php
-        if($_GET["scope"] == 'planete'){
-            echo('<h2>Cette planète a probablement été supprimée</h2>');
+        if($_GET["scope"] == 'moto'){
+            echo('<h2>Cette moto a probablement été supprimée</h2>');
         }
-        if($_GET["scope"] == 'vaisseau'){
-            echo('<h2>Ce vaisseau a probablement été supprimé</h2>');
-        }
+
         ?>
 <a class="btn btn-outline-warning " onclick="window.history.back()">back</a>
     </section>

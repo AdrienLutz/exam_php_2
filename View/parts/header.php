@@ -12,7 +12,7 @@
     </style>
 
 
-    <title><?php echo isset($title) ? $title : "Star Wars" ?></title>
+    <title><?php echo isset($title) ? $title : "Les motos de Toto" ?></title>
 </head>
 
 <body>

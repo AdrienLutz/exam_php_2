@@ -1,25 +1,25 @@
 <?php
 include 'View/parts/header.php';
 ?>
-<h1>Ajouter une planète</h1>
+<h1>Ajouter une moto</h1>
 
-<a class="btn btn-outline-warning m-2 " href="index.php?controller=planetes&action=planetlist">back</a>
+<a class="btn btn-outline-warning m-2 " href="index.php?controller=motos&action=motolist">back</a>
 <section class="container">
     <div class="row">
 <!--        enctype est indispensable pour les uploads-->
         <form method="post" enctype="multipart/form-data" class="row">
             <div class="col-md-12">
-                <label for="nom" class="form-label">Nom :</label>
+                <label for="brand" class="form-label">brand :</label>
                 <input type="text"
-                       value="<?php if(array_key_exists('nom', $_POST)){
-                           echo(htmlspecialchars($_POST['nom']));} ?>"
-                       name="nom" id="nom" class="form-control
-            <?php if (array_key_exists("nom", $errors)) {
+                       value="<?php if(array_key_exists('brand', $_POST)){
+                           echo(htmlspecialchars($_POST['brand']));} ?>"
+                       name="brand" id="brand" class="form-control
+            <?php if (array_key_exists("brand", $errors)) {
                     echo ('is-invalid');
                 } ?>">
-                <div id="validateName" class="invalid-feedback">
-                    <?php if (array_key_exists("nom", $errors)) {
-                        echo ($errors['nom']);
+                <div id="validateBrand" class="invalid-feedback">
+                    <?php if (array_key_exists("brand", $errors)) {
+                        echo ($errors['brand']);
                     } ?>
                 </div>
 
@@ -27,34 +27,34 @@ include 'View/parts/header.php';
 
 
             <div class="col-md-12">
-                <label for="Description" class="form-label">Description</label>
-                <textarea class="form-control" name="description" id="Description"></textarea>
+                <label for="model" class="form-label">model</label>
+                <textarea class="form-control" name="model" id="model"></textarea>
             </div>
 
             <div class="col-md-12">
 
-                <label for="validationServer04" class="form-label">Terrain</label>
+                <label for="validationServer04" class="form-label">type</label>
                 <select class="form-select
-                <?php if (array_key_exists("terrain", $errors)) {
+                <?php if (array_key_exists("type", $errors)) {
                     echo('is-invalid');
-                }; ?>" name="terrain" id="validationServer04">
-                    <option value="">Pas d'infos</option>
+                }; ?>" name="type" id="validationServer04">
+<!--                    <option value="">Pas d'infos</option>-->
                     <?php
-                    // permet d'afficher les terrains de la static qu'on peut d'ailleurs ajouter directement
-                    foreach (PlanetController::$allowedTerrain as $terrain){
+                    // permet d'afficher les types de la static qu'on peut d'ailleurs ajouter directement
+                    foreach (motoController::$allowedtype as $type){
                         // pour garder la selection :
                         $selected='';
-                        if(array_key_exists("terrain", $_POST) && $_POST["terrain"] == $terrain){
+                        if(array_key_exists("type", $_POST) && $_POST["type"] == $type){
                             $selected = 'selected';
                         }
-                        echo('<option '.$selected.' value="'.$terrain.'">'.$terrain.'</option>');
+                        echo('<option '.$selected.' value="'.$type.'">'.$type.'</option>');
                     }
                     ?>
 
                 </select>
                 <div class="invalid-feedback">
-                    <?php if (array_key_exists("terrain", $errors)) {
-                        echo($errors['terrain']);
+                    <?php if (array_key_exists("type", $errors)) {
+                        echo($errors['type']);
                     }; ?>
                 </div>
             </div>

@@ -1,18 +1,18 @@
 <?php
 
-class Starship{
+class Moto{
     protected $id;
-    protected $nom;
-    protected $taille;
-    protected $fonction;
+    protected $brand;
+    protected $model;
+    protected $type;
     protected $picture;
 
-    public function __construct($id, $nom, $taille, $fonction,$picture)
+    public function __construct($id, $brand, $model, $type, $picture)
     {
         $this->id = $id ;
-        $this->nom = $nom ;
-        $this->taille = $taille ;
-        $this->fonction = $fonction ;
+        $this->brand = $brand ;
+        $this->model = $model ;
+        $this->type = $type ;
         $this->picture = $picture ;
     }
 
@@ -35,49 +35,49 @@ class Starship{
     /**
      * @return mixed
      */
-    public function getNom()
+    public function getBrand()
     {
-        return $this->nom;
+        return $this->brand;
     }
 
     /**
-     * @param mixed $nom
+     * @param mixed $brand
      */
-    public function setNom($nom)
+    public function setBrand($brand)
     {
-        $this->nom = $nom;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTaille()
-    {
-        return $this->taille;
-    }
-
-    /**
-     * @param mixed $taille
-     */
-    public function setTaille($taille)
-    {
-        $this->taille = $taille;
+        $this->brand = $brand;
     }
 
     /**
      * @return mixed
      */
-    public function getFonction()
+    public function getModel()
     {
-        return $this->fonction;
+        return $this->model;
     }
 
     /**
-     * @param mixed $fonction
+     * @param mixed $model
      */
-    public function setFonction($fonction)
+    public function setModel($model)
     {
-        $this->terrain = $fonction;
+        $this->model = $model;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 
     /**

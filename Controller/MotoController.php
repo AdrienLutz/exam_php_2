@@ -1,14 +1,13 @@
 <?php
-class PlanetController extends SecurityController
+class motoController extends SecurityController
 {
     private $pm;
 
-    public static $allowedTerrain = [
-        "Désert",
-        "Forêt",
-        "Glace",
-        "Marais",
-        "Œcuménopole"
+    public static $allowedtype = [
+        "Enduro",
+        "Custom",
+        "Sportive",
+        "Roadster",
     ];
 
     public static $allowedPicture = [
@@ -21,22 +20,22 @@ class PlanetController extends SecurityController
         // éviter que le constructeur de sécurité écrase celui-ci
         parent::__construct();
 
-        $this->pm = new PlanetManager();
+        $this->pm = new motoManager();
     }
 
     public function displayAll()
     {
-        $planets = $this->pm->getAll();
-        require 'View/planets/planetlist.php';
+        $motos = $this->pm->getAll();
+        require 'View/motos/motolist.php';
     }
 
     public function displayOne($id)
     {
-        $planet = $this->pm->getOne($id);
-        if (is_null($planet)) {
-            header("Location:index.php?controller=default&action=not-found&scope=planete ");
+        $moto = $this->pm->getOne($id);
+        if (is_null($moto)) {
+            header("Location:index.php?controller=default&action=not-found&scope=motoe ");
         }
-        require 'View/planets/planetdetail.php';
+        require 'View/motos/motodetail.php';
     }
 
     public function ajout()
@@ -76,27 +75,27 @@ class PlanetController extends SecurityController
                     move_uploaded_file($_FILES["picture"]["tmp_name"],"public/img/".$uniqFileName);
                     }
 
-                $planet = new Planet (null, $_POST["nom"], $_POST["description"], $_POST["terrain"], $uniqFileName);
-                $this->pm-> add($planet);
+                $moto = new moto (null, $_POST["brand"], $_POST["model"], $_POST["type"], $uniqFileName);
+                $this->pm-> add($moto);
                 // rediriger l'utilisateur vers la liste
-                header ("Location:index.php?controller=planetes&action=planetlist");
+                header ("Location:index.php?controller=motos&action=motolist");
 
             }
         }
-        require 'View/planets/formAdd.php';
+        require 'View/motos/formAdd.php';
     }
 
     private function checkForm()
     {
             $errors = [];
-            if(empty($_POST["nom"])){
-                $errors["nom"] = 'Veuillez saisir le nom de la planète';
+            if(empty($_POST["brand"])){
+                $errors["brand"] = 'Veuillez saisir la marque de la moto';
             }
-            if(strlen($_POST["nom"])>250){
-                $errors["nom"] = "Le nom est trop long (250 caractères maximum)";
+            if(strlen($_POST["brand"])>250){
+                $errors["brand"] = "Le nom de la marque est trop long (250 caractères maximum)";
             }
-            if(!in_array($_POST["terrain"], self::$allowedTerrain)){
-                $errors["terrain"] = "Ce type de terrain n'existe pas";
+            if(!in_array($_POST["type"], self::$allowedtype)){
+                $errors["type"] = "Ce type de type n'existe pas";
             }
             // On ne traite pas les photos ici, car les erreurs de création et d'édition ne sont pas les mêmes
             // L'image est stockée dans le serveur donc on ne peut pas mettre la "value" dans l'"input".
@@ -108,20 +107,20 @@ class PlanetController extends SecurityController
         // vérifier qu'on a le droit de se connecter
         parent::isLoggedIn();
         $errors=[];
-        $planet = $this->pm->getOne($id);
+        $moto = $this->pm->getOne($id);
 
-        if(is_null($planet)){
-            header("Location:index.php?controller=default&action=not-found&scope=planete");
+        if(is_null($moto)){
+            header("Location:index.php?controller=default&action=not-found&scope=motoe");
         } else {
             if($_SERVER["REQUEST_METHOD"] == 'POST'){
                 // vérifier le formulaire via 3 conditions au sein de la methode privée appelée ici
                 $errors = $this->checkform();
                 // pour mettre à jour, il faut aller récupérer les données
-                $planet->setNom($_POST["nom"]);
-                $planet->setDescription($_POST["description"]);
-                $planet->setTerrain($_POST["terrain"]);
+                $moto->setBrand($_POST["brand"]);
+                $moto->setModel($_POST["model"]);
+                $moto->setType($_POST["type"]);
                 //cette ligne ne sert plus à rien, car désormais on upload
-                // $planet->setPicture($_POST["picture"]);
+                // $moto->setPicture($_POST["picture"]);
 
                 if (count($errors) ==0){
                     // vérifier la présence d'un fichier dans "picture"
@@ -139,21 +138,21 @@ class PlanetController extends SecurityController
                         }
                         if(count($errors)==0) {
                             //suppression de la précédente photo
-                            unlink("public/img/".$planet->getPicture());
+                            unlink("public/img/".$moto->getPicture());
                             // upload
                             $extension = explode('/', $_FILES["picture"]["type"])[1];
                             $uniqFileName = uniqid() . '.' . $extension;
                             move_uploaded_file($_FILES["picture"]["tmp_name"], "public/img/" . $uniqFileName);
-                            $planet->setPicture($uniqFileName);
+                            $moto->setPicture($uniqFileName);
                         }
                     }
                     // mise à jour de la bdd
-                    $this->pm->update($planet);
+                    $this->pm->update($moto);
                     // redirection de l'utilisateur
-                    header("Location: index.php?controller=planetes&action=planetlist");
+                    header("Location: index.php?controller=motos&action=motolist");
                 }
             }
-            require 'View/planets/formEdit.php';
+            require 'View/motos/formEdit.php';
         }
 
     }
@@ -161,17 +160,17 @@ class PlanetController extends SecurityController
     public function delete($id){
         // vérifier le droit de se connecter
         parent::isLoggedIn();
-        $planet = $this->pm->getOne($id);
-        if(is_null($planet)){
-            header("Location:index.php?controller=default&action=not-found&scope=planete");
+        $moto = $this->pm->getOne($id);
+        if(is_null($moto)){
+            header("Location:index.php?controller=default&action=not-found&scope=motoe");
         } else{
             // suppression du fichier de la bdd
-            unlink("public/img/".$planet->getPicture());
+            unlink("public/img/".$moto->getPicture());
             // appel du manager pour lancer la méthode "delete"
-            $this->pm->delete($planet->getId());
+            $this->pm->delete($moto->getId());
             // suppression de la planète
             // redirection vers la même page avec entretemps l'exécution de la requête de suppression
-            header("Location: index.php?controller=planetes&action=planetlist");
+            header("Location: index.php?controller=motos&action=motolist");
         }
 
 

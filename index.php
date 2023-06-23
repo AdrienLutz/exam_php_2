@@ -8,14 +8,12 @@ require "autoload.php";
 //require 'Model/Manager/UserManager.php';
 //require 'Controller/SecurityController.php';
 //
-//require 'Model/Class/Planet.php';
-//require 'Model/Manager/PlanetManager.php';
+//require 'Model/Class/moto.php';
+//require 'Model/Manager/motoManager.php';
 //require 'Controller/DefaultController.php';
-//require 'Controller/PlanetController.php';
+//require 'Controller/motoController.php';
 //
-//require 'Model/Class/Starship.php';
-//require 'Model/Manager/StarshipManager.php';
-//require 'Controller/StarshipController.php';
+
 
 
 // require lance une erreur si ne trouve pas le fichier
@@ -63,18 +61,18 @@ if ($_GET["controller"] == "security") {
 }
 
 
-// si, dans home.php, j'ai cliqué sur le lien pour voir les planetes,
-//alors je viens ici car le controller = planetes
-if ($_GET["controller"] == 'planetes') {
-    // cela crée un nouvel objet PlanetController
-    $controller = new PlanetController();
-    // si l'action = planetlist, je lance mon displayAll soit l'affichage
-    // de toutes mes planetes en bdd
-    if ($_GET["action"] == "planetlist") {
+// si, dans home.php, j'ai cliqué sur le lien pour voir les motos,
+//alors je viens ici car le controller = motos
+if ($_GET["controller"] == 'motos') {
+    // cela crée un nouvel objet motoController
+    $controller = new motoController();
+    // si l'action = motolist, je lance mon displayAll soit l'affichage
+    // de toutes mes motos en bdd
+    if ($_GET["action"] == "motolist") {
         $controller->displayAll();
     }
     // on crée ici une nouvelle condition pour afficher le détail
-    // et on aura besoin de l'id de la planete
+    // et on aura besoin de l'id de la motoe
     if ($_GET['action'] == 'detail' && array_key_exists('id', $_GET)){
         $controller->displayOne($_GET['id']);
     }

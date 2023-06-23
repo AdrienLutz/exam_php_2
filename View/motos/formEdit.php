@@ -1,62 +1,62 @@
 <?php
 include 'View/parts/header.php';
 ?>
-<h1>Modifier la planète <?php echo($planet->getNom()); ?></h1>
+<h1>Modifier les informations de la moto <?php echo($moto->getBrand()); ?></h1>
 
-<a class="btn btn-outline-warning m-2 " href="index.php?controller=planetes&action=planetlist">back</a>
+<a class="btn btn-outline-warning m-2 " href="index.php?controller=motos&action=motolist">back</a>
 <section class="container">
     <div class="row">"
         <form method="post"  enctype="multipart/form-data" class="row">
             <div class="col-md-12">
-                <label for="nom" class="form-label">Nom de la planète</label>
+                <label for="brand" class="form-label">Nom de la moto</label>
 
-                <input type="text" name="nom" class="form-control <?php
-                if (array_key_exists("nom", $errors)) {
+                <input type="text" name="brand" class="form-control <?php
+                if (array_key_exists("brand", $errors)) {
                     echo('is-invalid');
                 }
-                ?>" value="<?php echo($planet->getNom()); ?>" id="nom">
+                ?>" value="<?php echo($moto->getBrand()); ?>" id="brand">
 
-                <div id="validateNom" class="invalid-feedback">
+                <div id="validateBrand" class="invalid-feedback">
                     <?php
-                    if (array_key_exists("nom", $errors)) {
-                        echo($errors["nom"]);
+                    if (array_key_exists("brand", $errors)) {
+                        echo($errors["brand"]);
                     };
                     ?>
                 </div>
             </div>
 
             <div class="col-md-12">
-                <label for="Description" class="form-label">Description</label>
-                <textarea class="form-control" name="description" id="Description">
-                    <?php echo($planet->getDescription()); ?>
+                <label for="model" class="form-label">model</label>
+                <textarea class="form-control" name="model" id="model">
+                    <?php echo($moto->getModel()); ?>
                 </textarea>
             </div>
 
             <div class="col-md-12">
-                <label for="validationCustom04" class="form-label">Terrain</label>
+                <label for="validationCustom04" class="form-label">type</label>
                 <select class="form-select
-                 <?php  if(array_key_exists("terrain", $errors)){echo('is-invalid');}?>" name="terrain" id="validationCustom04">
-                    <option  value="">Pas d'infos</option>
+                 <?php  if(array_key_exists("type", $errors)){echo('is-invalid');}?>" name="type" id="validationCustom04">
+<!--                    <option  value="">Pas d'infos</option>-->
                     <?php
-                    foreach (PlanetController::$allowedTerrain as $terrain){
+                    foreach (motoController::$allowedtype as $type){
                         $selected = '';
-                        if($planet->getTerrain() == $terrain){
+                        if($moto->getType() == $type){
                             $selected = 'selected';
                         }
-                        echo('<option '.$selected.' value="'.$terrain.'">'.$terrain.'</option>');
+                        echo('<option '.$selected.' value="'.$type.'">'.$type.'</option>');
                     }
                     ?>
                 </select>
                 <div class="invalid-feedback">
-                    <?php  if(array_key_exists("terrain", $errors)){echo($errors["terrain"]);}?>
+                    <?php  if(array_key_exists("type", $errors)){echo($errors["type"]);}?>
                 </div>
             </div>
 
 
             <div class="col-md-12">
                 <span>Aperçu de l'image actuelle</span><br>
-                <img class="img-thumbnail" src="public/img/<?php echo($planet->getPicture())?>"><br>
-                <span>Attention tout ajout écrase le précédent</span><br>
+                <img class="img-thumbnail" src="public/img/<?php echo($moto->getPicture())?>"><br>
+                <span class="text-danger">Attention tout ajout écrase le précédent</span><br>
                 <label for="picture" class="form-label">Photo</label>
                 <input type="file" name="picture" class="form-control
             <?php if(array_key_exists("picture", $errors)){echo('is-invalid');}?>" id="picture">
